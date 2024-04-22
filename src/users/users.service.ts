@@ -31,7 +31,17 @@ export class UsersService {
   }
 
   async findAll() {
-    return await this.usersRepository.find();
+    const users = await this.usersRepository.find();
+
+      const serializedList =   users.map((user : User) =>{
+        const userCopy = { ...user };
+        delete userCopy.password;
+        delete userCopy.refreshToken;
+        return userCopy;
+        
+      })
+      return serializedList
+
   }
 
   async findOne(id: number) {
