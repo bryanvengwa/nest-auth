@@ -7,23 +7,26 @@ import { User } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
-  constructor (@InjectRepository(User) private usersRepository: Repository<User>) {
-
-  }
-  async create(userDTO: CreateUserDto) : Promise<User> {
-    const userName = this.usersRepository.exists({where:{
-      userName : userDTO.userName,
-    }})
-    if(userName){
-      throw new HttpException("userName already exists", HttpStatus.CONFLICT)
+  constructor(
+    @InjectRepository(User)
+    private usersRepository: Repository<User>
+  ) {}
+  async create(userDTO: CreateUserDto): Promise<User> {
+    const userName = await this.usersRepository.exists({
+      where: {
+        userName: userDTO.userName,
+      },
+    });
+    if (userName) {
+      throw new HttpException('userName already exists', HttpStatus.CONFLICT);
     }
-    
-    const user = await this.usersRepository.save(userDTO)
-    return user
+
+    const user = await this.usersRepository.save(userDTO);
+    return user;
   }
 
   async findAll() {
-    return await this.usersRepository.find()
+    return await this.usersRepository.find();
   }
 
   findOne(id: number) {
