@@ -10,7 +10,7 @@ export class UsersService {
   constructor (@InjectRepository(User) private usersRepository: Repository<User>) {
 
   }
-  create(userDTO: CreateUserDto) {
+  async create(userDTO: CreateUserDto) {
     const userName = this.usersRepository.exists({where:{
       userName : userDTO.userName,
     }})
@@ -18,8 +18,8 @@ export class UsersService {
       throw new HttpException("userName already exists", HttpStatus.CONFLICT)
     }
     
-
-    return 'This action adds a new user';
+    const user = await this.usersRepository.create(userDTO)
+    return user
   }
 
   findAll() {
