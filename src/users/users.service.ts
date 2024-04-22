@@ -10,20 +10,20 @@ export class UsersService {
   constructor (@InjectRepository(User) private usersRepository: Repository<User>) {
 
   }
-  async create(userDTO: CreateUserDto) {
+  async create(userDTO: CreateUserDto) : Promise<User> {
     const userName = this.usersRepository.exists({where:{
       userName : userDTO.userName,
     }})
-    if(!userName){
+    if(userName){
       throw new HttpException("userName already exists", HttpStatus.CONFLICT)
     }
     
-    const user = await this.usersRepository.create(userDTO)
+    const user = await this.usersRepository.save(userDTO)
     return user
   }
 
-  findAll() {
-    return `This action returns all users`;
+  async findAll() {
+    return await this.usersRepository.find()
   }
 
   findOne(id: number) {
