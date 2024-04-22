@@ -46,8 +46,31 @@ export class UsersService {
     return user;
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: number, updateUserDto: UpdateUserDto) {
+    const user = await this.usersRepository.findOne({ where: { id: id } });
+
+    if (!user) {
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    }
+// checking if userName has been updated
+    if (updateUserDto.userName && updateUserDto.userName !== user.userName) {
+      const userNameExists = await this.usersRepository.findOne({
+        where: { userName: updateUserDto.userName },
+      });
+
+      if (userNameExists) {
+        throw new HttpException('userName already exists', HttpStatus.CONFLICT);
+      }
+    }
+
+    await this.usersRepository.update(id, updateUserDto);
+
+    const updatedUser = await this.usersRepository.findOne({
+      where: { id: id },
+    });
+    delete updatedUser.password;
+    delete updatedUser.refreshToken;
+    return updatedUser;
   }
 
   remove(id: number) {
