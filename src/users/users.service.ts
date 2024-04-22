@@ -26,6 +26,7 @@ export class UsersService {
 
     const user = await this.usersRepository.save(userDTO);
     delete user.password;
+    delete user.refreshToken;
     return user;
   }
 
@@ -40,6 +41,8 @@ export class UsersService {
     if (!user) {
       throw new HttpException('user not found', HttpStatus.NOT_FOUND);
     }
+    delete user.password;
+    delete user.refreshToken;
     return user;
   }
 
