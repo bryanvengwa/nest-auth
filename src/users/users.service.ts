@@ -10,10 +10,10 @@ import * as bcrypt from 'bcryptjs';
 export class UsersService {
   constructor(
     @InjectRepository(User)
-    private usersRepository: Repository<User>
+    private usersRepository: Repository<User>,
   ) {}
   async create(userDTO: CreateUserDto): Promise<User> {
-    const salt = await bcrypt.genSalt()
+    const salt = await bcrypt.genSalt();
     userDTO.password = await bcrypt.hash(userDTO.password, salt);
     const userName = await this.usersRepository.exists({
       where: {
@@ -25,7 +25,7 @@ export class UsersService {
     }
 
     const user = await this.usersRepository.save(userDTO);
-    delete user.password
+    delete user.password;
     return user;
   }
 
@@ -33,8 +33,14 @@ export class UsersService {
     return await this.usersRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findOne(id: number) {
+    const user = await this.usersRepository.findOne({
+      where: { id: id },
+    });
+    if (!user) {
+      throw new HttpException('user not found', HttpStatus.NOT_FOUND);
+    }
+    return user;
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
