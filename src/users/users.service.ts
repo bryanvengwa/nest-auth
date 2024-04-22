@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -10,7 +10,15 @@ export class UsersService {
   constructor (@InjectRepository(User) private usersRepository: Repository<User>) {
 
   }
-  create(createUserDto: CreateUserDto) {
+  create(userDTO: CreateUserDto) {
+    const userName = this.usersRepository.exists({where:{
+      userName : userDTO.userName,
+    }})
+    if(!userName){
+      throw new HttpException("userName already exists", HttpStatus.CONFLICT)
+    }
+    
+
     return 'This action adds a new user';
   }
 
