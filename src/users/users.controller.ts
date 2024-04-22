@@ -35,12 +35,12 @@ export class UsersController {
   }
 
   @Patch(':id')
-  update(@Param('id', new ParseIntPipe({errorHttpStatusCode: HttpStatus.NOT_FOUND})) id: number, @Body() updateUserDto: UpdateUserDto) {
+  update(@Param('id', new ParseIntPipe({errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE})) id: number, @Body() updateUserDto: UpdateUserDto) {
     return this.usersService.update(id, updateUserDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.usersService.remove(+id);
+  remove(@Param('id', new ParseIntPipe({errorHttpStatusCode : HttpStatus.NOT_FOUND})) id: number) {
+    return this.usersService.remove(id);
   }
 }

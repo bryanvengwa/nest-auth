@@ -52,7 +52,7 @@ export class UsersService {
     if (!user) {
       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     }
-// checking if userName has been updated
+    // checking if userName has been updated
     if (updateUserDto.userName && updateUserDto.userName !== user.userName) {
       const userNameExists = await this.usersRepository.findOne({
         where: { userName: updateUserDto.userName },
@@ -73,7 +73,11 @@ export class UsersService {
     return updatedUser;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: number) {
+    const user = await this.usersRepository.findOne({ where: { id: id } });
+    if (!user) {
+      throw new HttpException('user not found', HttpStatus.NOT_FOUND);
+    }
+    return this.usersRepository.delete(id);
   }
 }
