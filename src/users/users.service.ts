@@ -30,6 +30,14 @@ export class UsersService {
     delete user.refreshToken;
     return user;
   }
+  async findByUserName(userName: string  ): Promise<User>{
+    const user = await this.usersRepository.findOneBy({userName: userName})
+    return user
+
+}
+    
+
+
 
   async findAll(options: any): Promise<Pagination<User>> {
     return paginate<User>(this.usersRepository, {
@@ -54,7 +62,7 @@ export class UsersService {
     return user;
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto) {
+  async update(id: number, updateUserDto: Partial<UpdateUserDto>) {
     const user = await this.usersRepository.findOne({ where: { id: id } });
 
     if (!user) {
