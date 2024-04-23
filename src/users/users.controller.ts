@@ -8,11 +8,14 @@ import {
   Delete,
   ParseIntPipe,
   HttpStatus,
+  Query,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 
 import { UpdateUserDto } from './dto/update-user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
+import { Pagination } from 'nestjs-typeorm-paginate';
+import { User } from './entities/user.entity';
 
 @Controller('users')
 export class UsersController {
@@ -25,9 +28,11 @@ export class UsersController {
   }
 
   @Get()
-  findAll() {
-    return this.usersService.findAll();
-  }
+  async findAll(
+    @Query() options: any,
+  ): Promise<Pagination<User>> {
+    return this.usersService.findAll(options);
+ }
 
   @Get(':id')
   findOne(@Param('id', new ParseIntPipe({errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE})) id: number) {

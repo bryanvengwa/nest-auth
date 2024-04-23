@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import * as bcrypt from 'bcryptjs';
+import { IPaginationOptions, Pagination, paginate  } from 'nestjs-typeorm-paginate';
 
 @Injectable()
 export class UsersService {
@@ -30,19 +31,16 @@ export class UsersService {
     return user;
   }
 
-  async findAll() {
-    const users = await this.usersRepository.find();
+  async findAll(options: any): Promise<Pagination<User>> {
+    return paginate<User>(this.usersRepository, {
+      ...options,
+      transform: (user: User) => {
+        const { password, refreshToken, ...result } = user;
 
-      const serializedList =   users.map((user : User) =>{
-        const userCopy = { ...user };
-        delete userCopy.password;
-        delete userCopy.refreshToken;
-        return userCopy;
-        
-      })
-      return serializedList
-
-  }
+        return result;
+      },
+    });
+ }
 
   async findOne(id: number) {
     const user = await this.usersRepository.findOne({
@@ -90,4 +88,13 @@ export class UsersService {
     }
     return this.usersRepository.delete(id);
   }
+  async paginate( options : IPaginationOptions ) :Promise<Pagination<User>> {
+
+    const qb = this.usersRepository.createQueryBuilder('q')
+
+    qb.orderBy('q.id', 'DESC')
+    return paginate<User>(qb, options)
+
+  }
+
 }
