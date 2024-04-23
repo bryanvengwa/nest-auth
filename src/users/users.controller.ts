@@ -10,6 +10,7 @@ import {
   HttpStatus,
   Query,
   DefaultValuePipe,
+  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 
@@ -17,6 +18,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { IPaginationOptions, Pagination } from 'nestjs-typeorm-paginate';
 import { User } from './entities/user.entity';
+import { AccessTokenGuard } from 'src/common/guards/access-token.guard';
 
 @Controller('users')
 export class UsersController {
@@ -50,7 +52,7 @@ export class UsersController {
   ) {
     return this.usersService.findOne(id);
   }
-
+  @UseGuards(AccessTokenGuard)
   @Patch(':id')
   update(
     @Param(
@@ -63,6 +65,7 @@ export class UsersController {
     return this.usersService.update(id, updateUserDto);
   }
 
+  @UseGuards(AccessTokenGuard)
   @Delete(':id')
   remove(
     @Param(

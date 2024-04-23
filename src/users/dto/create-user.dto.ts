@@ -17,7 +17,5 @@ export class CreateUserDto {
   @IsNotEmpty()
   readonly userName: string;
 
-  @IsString()
-  @IsNotEmpty()
-  refreshToken: string;
+
 }

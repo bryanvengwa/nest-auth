@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, Injectable } from '@nestjs/common';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { UsersService } from 'src/users/users.service';
 import * as argon2 from 'argon2';
@@ -34,9 +34,9 @@ export class AuthService {
     return tokens;
   }
 
-	async signIn(data: AuthDto) {
+  async signIn(data: AuthDto) {
     // Check if user exists
-    const user = await this.usersService.findByUserName(data.username);
+    const user = await this.usersService.findByUserName(data.userName);
     if (!user) throw new BadRequestException('User does not exist');
     const passwordMatches = await argon2.verify(user.password, data.password);
     if (!passwordMatches)
@@ -46,7 +46,7 @@ export class AuthService {
     return tokens;
   }
 
-	async logout(userId: number) {
+  async logout(userId: number) {
     return this.usersService.update(userId, { refreshToken: null });
   }
 
@@ -89,5 +89,18 @@ export class AuthService {
       accessToken,
       refreshToken,
     };
+  }
+  async refreshTokens(userId: number, refreshToken: string) {
+    const user = await this.usersService.findOne(userId);
+    if (!user || !user.refreshToken)
+      throw new ForbiddenException('Access Denied');
+    const refreshTokenMatches = await argon2.verify(
+      user.refreshToken,
+      refreshToken,
+    );
+    if (!refreshTokenMatches) throw new ForbiddenException('Access Denied');
+    const tokens = await this.getTokens(user.id, user.userName);
+    await this.updateRefreshToken(user.id, tokens.refreshToken);
+    return tokens;
   }
 }
