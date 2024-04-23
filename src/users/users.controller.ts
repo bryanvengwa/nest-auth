@@ -22,11 +22,11 @@ import { User } from './entities/user.entity';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Post()
-  async create(@Body() createUserDto: CreateUserDto) {
-    console.log('post function running');
-    return await this.usersService.create(createUserDto);
-  }
+  // @Post()
+  // async create(@Body() createUserDto: CreateUserDto) {
+  //   console.log('post function running');
+  //   return await this.usersService.create(createUserDto);
+  // }
 
   @Get()
   async findAll(
