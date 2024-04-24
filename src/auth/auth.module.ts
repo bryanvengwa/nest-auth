@@ -9,9 +9,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'src/users/entities/user.entity';
 import { RefreshTokenStrategy } from './strategies/refreshToken.strategy';
 import { AccessTokenStrategy } from './strategies/accessToken.strategy';
+import { appConstants } from 'src/common/constants/app.constants';
 
 @Module({
-  imports:[JwtModule.register({secret : "fdsaffs"}), UsersModule , TypeOrmModule.forFeature([User]) ],
+  imports:[JwtModule.register({secret : appConstants.secret}), UsersModule , TypeOrmModule.forFeature([User]) ],
   controllers: [AuthController, ],
   providers: [AuthService, RefreshTokenStrategy,AccessTokenStrategy, UsersService, ConfigService ],
 })
