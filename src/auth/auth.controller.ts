@@ -30,17 +30,17 @@ export class AuthController {
   }
   @UseGuards(RefreshTokenGuard)
   @Get('refresh')
-  refreshTokens(@Req() req: any) {
-    const userId = req?.user['sub'];
-    console.log(userId)
+ async refreshTokens(@Req() req: any) {
+   const userId = req?.user['sub'];
+   console.log( "user id from refresh : "+ userId)
     const refreshToken = req?.user['refreshToken'];
-    return this.authService.refreshTokens(userId, refreshToken);
+    return await this.authService.refreshTokens(userId, refreshToken);
   }
 
   @UseGuards(AccessTokenGuard)
   @Get('logout')
   logout(@Req() req: any) {
-    console.log(req.user)
+    console.log( "user : "+ req.user['sub'])
     this.authService.logout(req.user['sub']);
   }
 

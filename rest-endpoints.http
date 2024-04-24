@@ -4,7 +4,7 @@
 GET http://localhost:3000/users
 
 ### get users by id 
-GET http://localhost:3000/users/2
+GET http://localhost:3000/users/3
 
 ### 
 
@@ -43,8 +43,8 @@ Content-Type: application/json
   }
 ### 
 GET http://localhost:3000/auth/logout
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsInVzZXJuYW1lIjoidGh1bmRlcm1hbnMiLCJpYXQiOjE3MTM5NTYwOTgsImV4cCI6MTcxMzk1Njk5OH0.8SvNuaS-dJ3f5aBHEUQW8zN9-dC_c1BIceY7FmXtD0M
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsInVzZXJuYW1lIjoidGh1bmRlcm1hbnMiLCJpYXQiOjE3MTM5NTY4NzgsImV4cCI6MTcxMzk1Nzc3OH0.zeKTBlZulKdIe9t3_NQYkFsimWeEqAX81KF9rBgzEMg
 ###
 GET  http://localhost:3000/auth/refresh
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsInVzZXJuYW1lIjoidGh1bmRlcm1hbnMiLCJpYXQiOjE3MTM5NTQ3NDEsImV4cCI6MTcxMzk1NTY0MX0.Qwb1YlCjAqmNGGiD73b17v0MlaTMc0FswWbYnbshoqQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsInVzZXJuYW1lIjoidGh1bmRlcm1hbnMiLCJpYXQiOjE3MTM5NTc2OTEsImV4cCI6MTcxNDU2MjQ5MX0.hkRpcOM84aJfBppPaHsmb2Yg2hcgn6eS9Ge491Hk7t8
 

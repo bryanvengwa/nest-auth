@@ -5,7 +5,11 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import * as bcrypt from 'bcryptjs';
-import { IPaginationOptions, Pagination, paginate  } from 'nestjs-typeorm-paginate';
+import {
+  IPaginationOptions,
+  Pagination,
+  paginate,
+} from 'nestjs-typeorm-paginate';
 
 @Injectable()
 export class UsersService {
@@ -17,14 +21,10 @@ export class UsersService {
     const user = await this.usersRepository.save(userDTO);
     return user;
   }
-  async findByUserName(userName: string  ): Promise<User>{
-    const user = await this.usersRepository.findOneBy({userName: userName})
-    return user
-
-}
-    
-
-
+  async findByUserName(userName: string): Promise<User> {
+    const user = await this.usersRepository.findOneBy({ userName: userName });
+    return user;
+  }
 
   async findAll(options: any): Promise<Pagination<User>> {
     return paginate<User>(this.usersRepository, {
@@ -35,7 +35,7 @@ export class UsersService {
         return result;
       },
     });
- }
+  }
 
   async findOne(id: number) {
     const user = await this.usersRepository.findOne({
@@ -47,6 +47,11 @@ export class UsersService {
     delete user.password;
     delete user.refreshToken;
     return user;
+  }
+  async getUser(id: number): Promise<User> {
+    return await this.usersRepository.findOne({
+      where: { id: id },
+    });
   }
 
   async update(id: number, updateUserDto: Partial<UpdateUserDto>) {
@@ -83,13 +88,10 @@ export class UsersService {
     }
     return this.usersRepository.delete(id);
   }
-  async paginate( options : IPaginationOptions ) :Promise<Pagination<User>> {
+  async paginate(options: IPaginationOptions): Promise<Pagination<User>> {
+    const qb = this.usersRepository.createQueryBuilder('q');
 
-    const qb = this.usersRepository.createQueryBuilder('q')
-
-    qb.orderBy('q.id', 'DESC')
-    return paginate<User>(qb, options)
-
+    qb.orderBy('q.id', 'DESC');
+    return paginate<User>(qb, options);
   }
-
 }
