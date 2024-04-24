@@ -31,6 +31,7 @@ export class AuthService {
     });
     const passwordMatches = await argon2.verify(hash, createUserDto.password);
     console.log(passwordMatches)
+    console.log(hash.length, + " :" + hash)
     
     const tokens = await this.getTokens(newUser.id, newUser.userName);
     await this.updateRefreshToken(newUser.id, tokens.refreshToken);
@@ -41,6 +42,7 @@ export class AuthService {
     // Check if user exists
     const user = await this.usersService.findByUserName(data.userName);
     if (!user) throw new BadRequestException('User does not exist');
+    console.log(user.password.length,  + " :" + user.password);
     const passwordMatches = await argon2.verify(user.password, data.password);
     if (!passwordMatches)
       throw new BadRequestException('Password is incorrect');

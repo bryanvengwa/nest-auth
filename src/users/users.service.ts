@@ -14,20 +14,7 @@ export class UsersService {
     private usersRepository: Repository<User>,
   ) {}
   async create(userDTO: CreateUserDto): Promise<User> {
-    const salt = await bcrypt.genSalt();
-    userDTO.password = await bcrypt.hash(userDTO.password, salt);
-    const userName = await this.usersRepository.exists({
-      where: {
-        userName: userDTO.userName,
-      },
-    });
-    if (userName) {
-      throw new HttpException('userName already exists', HttpStatus.CONFLICT);
-    }
-
     const user = await this.usersRepository.save(userDTO);
-    delete user.password;
-    delete user.refreshToken;
     return user;
   }
   async findByUserName(userName: string  ): Promise<User>{
