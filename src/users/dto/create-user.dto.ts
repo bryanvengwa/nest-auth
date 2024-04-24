@@ -9,7 +9,7 @@ export class CreateUserDto {
   @IsNotEmpty()
   readonly lastName: string;
 
-  @IsString()w
+  @IsString()
   @IsNotEmpty()
   password: string;
 

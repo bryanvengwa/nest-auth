@@ -29,6 +29,9 @@ export class AuthService {
       ...createUserDto,
       password: hash,
     });
+    const passwordMatches = await argon2.verify(hash, createUserDto.password);
+    console.log(passwordMatches)
+    
     const tokens = await this.getTokens(newUser.id, newUser.userName);
     await this.updateRefreshToken(newUser.id, tokens.refreshToken);
     return tokens;
@@ -45,7 +48,7 @@ export class AuthService {
     await this.updateRefreshToken(user.id, tokens.refreshToken);
     return tokens;
   }
-  
+
 
   async logout(userId: number) {
     return this.usersService.update(userId, { refreshToken: null });
