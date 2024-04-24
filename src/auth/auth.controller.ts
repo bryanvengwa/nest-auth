@@ -31,17 +31,17 @@ export class AuthController {
   @UseGuards(RefreshTokenGuard)
   @Get('refresh')
   refreshTokens(@Req() req: any) {
-    const userId = req.user['sub'];
-    const refreshToken = req.user['refreshToken'];
+    const userId = req?.user['sub'];
+    const refreshToken = req?.user['refreshToken'];
     return this.authService.refreshTokens(userId, refreshToken);
   }
 
-  // @UseGuards(AccessTokenGuard)
-  // @Get('logout')
-  // logout(@Req() req: Request) {
+  @UseGuards(AccessTokenGuard)
+  @Get('logout')
+  logout(@Req() req: any) {
     
-  //   this.authService.logout(req.user['sub']);
-  // }
+    this.authService.logout(req.user['sub']);
+  }
 
 
 }
