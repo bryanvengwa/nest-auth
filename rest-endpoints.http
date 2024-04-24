@@ -43,7 +43,7 @@ Content-Type: application/json
   }
 ### 
 GET http://localhost:3000/auth/logout
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsInVzZXJuYW1lIjoidGh1bmRlcm1hbnMiLCJpYXQiOjE3MTM5NTEwNDEsImV4cCI6MTcxMzk1MTk0MX0.xGD7rCbegOYOSVRhG0DatcN_TG18AoDUAwero4ZI3tY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsInVzZXJuYW1lIjoidGh1bmRlcm1hbnMiLCJpYXQiOjE3MTM5NTYwOTgsImV4cCI6MTcxMzk1Njk5OH0.8SvNuaS-dJ3f5aBHEUQW8zN9-dC_c1BIceY7FmXtD0M
 ###
 GET  http://localhost:3000/auth/refresh
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsInVzZXJuYW1lIjoidGh1bmRlcm1hbnMiLCJpYXQiOjE3MTM5NTQ3NDEsImV4cCI6MTcxMzk1NTY0MX0.Qwb1YlCjAqmNGGiD73b17v0MlaTMc0FswWbYnbshoqQ
