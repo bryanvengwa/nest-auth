@@ -10,13 +10,11 @@ GET http://localhost:3000/users/2
 
 PATCH http://localhost:3000/users/2
 Content-Type: application/json
-Authorization: Bearer
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsInVzZXJuYW1lIjoidGh1bmRlcm1hbnMiLCJpYXQiOjE3MTM5NDk5NDMsImV4cCI6MTcxMzk1MDg0M30.kX-JyDaMGLefBlgbHnogtBtW4ut0LNNhSTI9Fu-FybE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsInVzZXJuYW1lIjoidGh1bmRlcm1hbnMiLCJpYXQiOjE3MTM5NTQ4MzQsImV4cCI6MTcxMzk1NTczNH0._bzkq45qmlbUqeajgYgoePo67HZQTpOeGH0Y8pOyisg
 
     {
-    "firstName": "arlo nenyasha",
+    "firstName": "racheal",
     "lastName": "vengwa",
-    "userName": "thundermans",
     "password": "password"
   }
 
@@ -43,4 +41,10 @@ Content-Type: application/json
     "userName": "thundermans",
     "password": "password"
   }
+### 
+GET http://localhost:3000/auth/logout
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsInVzZXJuYW1lIjoidGh1bmRlcm1hbnMiLCJpYXQiOjE3MTM5NTEwNDEsImV4cCI6MTcxMzk1MTk0MX0.xGD7rCbegOYOSVRhG0DatcN_TG18AoDUAwero4ZI3tY
+###
+GET  http://localhost:3000/auth/refresh
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjMsInVzZXJuYW1lIjoidGh1bmRlcm1hbnMiLCJpYXQiOjE3MTM5NTQ3NDEsImV4cCI6MTcxMzk1NTY0MX0.Qwb1YlCjAqmNGGiD73b17v0MlaTMc0FswWbYnbshoqQ
 

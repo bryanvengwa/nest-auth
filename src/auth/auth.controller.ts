@@ -39,7 +39,7 @@ export class AuthController {
   @UseGuards(AccessTokenGuard)
   @Get('logout')
   logout(@Req() req: any) {
-    
+    console.log(req.user)
     this.authService.logout(req.user['sub']);
   }
 
