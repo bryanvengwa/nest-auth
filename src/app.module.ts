@@ -6,19 +6,11 @@ import { UsersModule } from './users/users.module';
 import { User } from './users/entities/user.entity';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
+import { dataSourceOptions } from 'db/data-source';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-       password: 'password',
-      database: 'token-auth',
-      entities: [User],
-      synchronize: true,
-    }),ConfigModule.forRoot(),
+    TypeOrmModule.forRoot(dataSourceOptions),ConfigModule.forRoot(),
     UsersModule,
     AuthModule,],
   controllers: [AppController],
