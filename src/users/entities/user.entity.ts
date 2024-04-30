@@ -1,6 +1,13 @@
 import { Exclude } from 'class-transformer';
+import { Admin } from 'src/admin/entities/admin.entity';
 import { UserInterface } from 'src/common/interfaces/user-interface';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity('users')
 export class User implements UserInterface {
@@ -20,9 +27,13 @@ export class User implements UserInterface {
   @Exclude()
   password: string;
 
-  @Column({nullable:true})
+  @Column({ nullable: true })
   phone: number;
 
   @Column({ nullable: true })
   refreshToken: string;
+
+  @OneToOne(() => Admin, { cascade: true })
+  @JoinColumn()
+  admin: Admin;
 }
