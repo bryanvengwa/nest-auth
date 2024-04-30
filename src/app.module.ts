@@ -6,12 +6,12 @@ import { UsersModule } from './users/users.module';
 import { User } from './users/entities/user.entity';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
-import { dataSourceOptions } from 'db/data-source';
 import configuration from './config/configuration';
+import { TypeOrmAsyncConfig } from 'db/data-source';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(dataSourceOptions),
+    TypeOrmModule.forRootAsync(TypeOrmAsyncConfig),
     ConfigModule.forRoot({
       envFilePath: ['.env.development', '.env.production'],
       isGlobal: true,
