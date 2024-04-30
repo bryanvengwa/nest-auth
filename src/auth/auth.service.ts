@@ -95,7 +95,7 @@ export class AuthService {
   async refreshTokens(userId: number, refreshToken: string) {
     const user = await this.usersService.getUser(userId);
     if (!user || !user.refreshToken)
-      throw new ForbiddenException('Access Denied user has no refresh token got ' + user.firstName );
+      throw new ForbiddenException('Access Denied user has no refresh token got ' );
     const refreshTokenMatches = await argon2.verify(
       user.refreshToken,
       refreshToken,
