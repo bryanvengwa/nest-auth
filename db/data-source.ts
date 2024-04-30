@@ -25,19 +25,17 @@ export const TypeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
   },
 };
 
-
-
 export const dataSourceOptions: DataSourceOptions = {
   type: 'postgres',
   host: 'localhost',
   port: 5432,
   database: 'token-auth',
   username: 'postgres',
-  password:  'password',
+  password: 'password',
   entities: ['dist/**/*.entity.js'],
   synchronize: false,
   migrations: ['dist/db/migrations/*.js'],
 };
 
-const dataSource =  new DataSource(dataSourceOptions);
+const dataSource = new DataSource(dataSourceOptions);
 export default dataSource;
