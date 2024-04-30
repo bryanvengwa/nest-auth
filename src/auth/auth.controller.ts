@@ -15,7 +15,7 @@ import { UpdateAuthDto } from './dto/update-auth.dto';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { AuthDto } from './dto/auth.dto';
 import { AccessTokenGuard } from 'src/common/guards/access-token.guard';
-import { RefreshTokenGuard } from 'src/common/guards/refresh-token.gaurd';
+import { RefreshTokenGuard } from 'src/common/guards/refresh-token.guard';
 
 @Controller('auth')
 export class AuthController {

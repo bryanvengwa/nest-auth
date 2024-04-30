@@ -8,7 +8,7 @@ import {
 import { PayloadType } from "src/common/types/types";
 
   @Injectable()
-  export class ArtistJwtGuard extends AuthGuard("jwt") {
+  export class AdminJwtGuard extends AuthGuard("jwt") {
     canActivate(
       context: ExecutionContext
     ): boolean | Promise<boolean> | Observable<boolean> {
@@ -20,7 +20,7 @@ import { PayloadType } from "src/common/types/types";
         throw err || new UnauthorizedException();
       }
       console.log(user);
-      if (user.artistId) {
+      if (user.adminId) {
   // 3
   return user;
       }
