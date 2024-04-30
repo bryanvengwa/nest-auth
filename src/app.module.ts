@@ -7,12 +7,19 @@ import { User } from './users/entities/user.entity';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { dataSourceOptions } from 'db/data-source';
+import configuration from './config/configuration';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(dataSourceOptions),ConfigModule.forRoot(),
+    TypeOrmModule.forRoot(dataSourceOptions),
+    ConfigModule.forRoot({
+      envFilePath: ['.env.development', '.env.production'],
+      isGlobal: true,
+      load: [configuration],
+    }),
     UsersModule,
-    AuthModule,],
+    AuthModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
