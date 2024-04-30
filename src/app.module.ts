@@ -10,6 +10,7 @@ import configuration from './config/configuration';
 import { TypeOrmAsyncConfig } from 'db/data-source';
 import { RouteLogger } from './common/middleware/logger.middleware';
 import { UsersController } from './users/users.controller';
+import { AdminModule } from './admin/admin.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { UsersController } from './users/users.controller';
     }),
     UsersModule,
     AuthModule,
+    AdminModule,
   ],
   controllers: [AppController],
   providers: [AppService],

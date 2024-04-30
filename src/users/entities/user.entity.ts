@@ -1,8 +1,9 @@
 import { Exclude } from 'class-transformer';
+import { UserInterface } from 'src/common/interfaces/user-interface';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('users')
-export class User {
+export class User implements UserInterface {
   @PrimaryGeneratedColumn()
   id: number;
 
