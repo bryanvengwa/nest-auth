@@ -1,8 +1,8 @@
 {
-  "name": "token-auth-app",
+  "name": "Nest js boilerplate",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "Nest js boilerplate code with jwt refresh tokens",
+  "author": "Bryan Vengwa",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
