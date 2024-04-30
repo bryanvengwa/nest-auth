@@ -39,7 +39,14 @@ export class UsersController {
       limit,
       page,
     };
-    return this.usersService.paginate(options);
+
+    const users = await this.usersService.paginate(options);
+    // users.items = users.items.filter((user) => {
+    //   const { password, refreshToken, ...data } = user;
+    //   console.log(data)
+    //   return data;
+    // });
+    return users;
   }
 
   @Get(':id')
